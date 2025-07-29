@@ -71,7 +71,7 @@ It provides real RAW decoding with high-quality AMaZE demosaicing and intuitive 
 
 ## License
 
-This project is released under the [MIT License](LICENSE).
+This project is released under the GNU GPLv3 (2007). <a href="LICENSE">LICENSE</a>
 
 ---
 
