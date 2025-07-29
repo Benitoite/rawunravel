@@ -1,5 +1,5 @@
 # RAWUnravel
-
+<img src="rawunravel.png"></img>
 **RAWUnravel** is an open-source RAW image viewer and minimal editor for iOS, designed for photographers and developers who want an efficient way to preview, adjust, and export RAW photos on iPhone or iPad.  
 It provides real RAW decoding with high-quality AMaZE demosaicing and intuitive exposure controls, making it easy to tweak and export your images right from your device.
 
@@ -65,8 +65,8 @@ It provides real RAW decoding with high-quality AMaZE demosaicing and intuitive 
 - Passionate about open-source, beautiful user experiences, and empowering creative work on macOS and iOS.
 - [GitHub: Benitoite](https://github.com/Benitoite)
 
-*Feel free to reach out with questions, pull requests, or feedback!*
-
+<a href="https://patreon.com/Benitoite">*Feel free to reach out with questions, pull requests, or feedback!*
+Join and support my Patreon with your generous financial donation.</a>
 ---
 
 ## License
