@@ -1,0 +1,67 @@
+#!/bin/bash
+set -e
+
+RTP_ROOT=$(pwd)
+INSTALL_DIR="$RTP_ROOT/librtprocess-xcframework"
+BUILD_DIR="$RTP_ROOT/build"
+VERSION_MIN=11.0
+
+function build_for_platform() {
+  PLATFORM=$1
+  ARCH=$2
+  HOST=$3
+  SDK=$(xcrun --sdk $PLATFORM --show-sdk-path)
+  BUILD_SUBDIR="$BUILD_DIR/$PLATFORM-$ARCH"
+
+  echo "== Building librtprocess for $PLATFORM ($ARCH) =="
+
+  rm -rf "$BUILD_SUBDIR"
+  mkdir -p "$BUILD_SUBDIR"
+  pushd "$BUILD_SUBDIR"
+
+  export CC="$(xcrun --sdk $PLATFORM -f clang)"
+  export CXX="$(xcrun --sdk $PLATFORM -f clang++)"
+  export SDKROOT="$SDK"
+  export CFLAGS="-I$LCMS2_PREFIX/include -arch $ARCH -isysroot $SDK -m${PLATFORM}-version-min=$VERSION_MIN"
+  export CXXFLAGS="$CFLAGS -stdlib=libc++"
+  export LDFLAGS="-L$LCMS2_PREFIX/lib -lz -lm"
+
+  # Force disable OpenMP at all levels
+  cmake "$RTP_ROOT" \
+    -DCMAKE_SYSTEM_NAME=iOS \
+    -DCMAKE_OSX_SYSROOT="$SDK" \
+    -DCMAKE_OSX_ARCHITECTURES="$ARCH" \
+    -DCMAKE_INSTALL_PREFIX="$BUILD_SUBDIR/install" \
+    -DCMAKE_C_FLAGS="$CFLAGS -Wno-unknown-warning-option" \
+    -DCMAKE_CXX_FLAGS="$CXXFLAGS -Wno-unknown-warning-option" \
+    -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DWITH_OPENMP=OFF \
+    -DCMAKE_DISABLE_FIND_PACKAGE_OpenMP=TRUE \
+    -DOpenMP_C_FLAGS="" \
+    -DOpenMP_CXX_FLAGS="" \
+    -DOpenMP_C_LIB_NAMES="" \
+    -DOpenMP_CXX_LIB_NAMES="" \
+    -DOpenMP_libomp_LIBRARY=""
+
+  make -j$(sysctl -n hw.logicalcpu)
+  make install
+  popd
+}
+
+# Clean previous
+rm -rf "$BUILD_DIR" "$INSTALL_DIR"
+
+build_for_platform iphoneos arm64 arm64-apple-ios
+build_for_platform iphonesimulator arm64 arm64-apple-ios
+
+echo "== Creating XCFramework for librtprocess =="
+
+xcodebuild -create-xcframework \
+  -library "$BUILD_DIR/iphoneos-arm64/install/lib/librtprocess.a" \
+  -headers "$BUILD_DIR/iphoneos-arm64/install/include" \
+  -library "$BUILD_DIR/iphonesimulator-arm64/install/lib/librtprocess.a" \
+  -headers "$BUILD_DIR/iphonesimulator-arm64/install/include" \
+  -output "$INSTALL_DIR/librtprocess.xcframework"
+
+echo "✅ Built: $INSTALL_DIR/librtprocess.xcframework"

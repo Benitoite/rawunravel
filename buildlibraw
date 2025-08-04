@@ -1,0 +1,56 @@
+#!/bin/bash
+set -euo pipefail
+
+# This script is run from the LibRaw source root.
+SRC_ROOT="$(pwd)"
+BUILD_ROOT="$SRC_ROOT/build"
+INSTALL_DIR="$BUILD_ROOT/libraw-xcframework"
+DEPLOYMENT_TARGET=18.5
+
+# Remove only the xcframework output, not the entire build directory!
+rm -rf "$INSTALL_DIR"
+
+echo "== Building LibRaw for iOS device (arm64) =="
+cmake -S "$SRC_ROOT" -B "$BUILD_ROOT/ios-arm64" \
+    -G Xcode \
+    -DCMAKE_SYSTEM_NAME=iOS \
+    -DCMAKE_OSX_ARCHITECTURES=arm64 \
+    -DCMAKE_OSX_DEPLOYMENT_TARGET=$DEPLOYMENT_TARGET \
+    -DENABLE_LCMS=OFF \
+    -DENABLE_OPENMP=OFF \
+    -DENABLE_JPEG=OFF \
+    -DENABLE_ZLIB=OFF \
+    -DENABLE-EXAMPLES=OFF \
+    -DENABLE_SAMPLES=OFF \
+ -G "Unix Makefiles" \
+-DBUILD_SHARED_LIBS=OFF
+
+cmake --build "$BUILD_ROOT/ios-arm64" --config Release
+
+echo "== Building LibRaw for iOS Simulator (arm64) =="
+cmake -S "$SRC_ROOT" -B "$BUILD_ROOT/iossim-arm64" \
+    -G Xcode \
+    -DCMAKE_SYSTEM_NAME=iOS \
+    -DCMAKE_OSX_ARCHITECTURES=arm64 \
+    -DCMAKE_OSX_DEPLOYMENT_TARGET=$DEPLOYMENT_TARGET \
+    -DCMAKE_OSX_SYSROOT=$(xcrun --sdk iphonesimulator --show-sdk-path) \
+    -DENABLE_LCMS=OFF \
+    -DENABLE_OPENMP=OFF \
+    -DENABLE_JPEG=OFF \
+    -DENABLE_ZLIB=OFF \
+    -DENABLE_EXAMPLES=OFF \
+    -DENABLE_SAMPLES=OFF \
+ -G "Unix Makefiles" \
+-DBUILD_SHARED_LIBS=OFF
+
+cmake --build "$BUILD_ROOT/iossim-arm64" --config Release
+
+echo "== Creating LibRaw XCFramework =="
+xcodebuild -create-xcframework \
+  -library "$BUILD_ROOT/ios-arm64/libraw.a" \
+  -headers "$SRC_ROOT/libraw" \
+  -library "$BUILD_ROOT/iossim-arm64/libraw.a" \
+  -headers "$SRC_ROOT/libraw" \
+  -output "$INSTALL_DIR/LibRaw.xcframework"
+
+echo "✅ XCFramework created at: $INSTALL_DIR/LibRaw.xcframework"
