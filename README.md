@@ -1,5 +1,5 @@
 # RAWUnravel
-<img src="rawunravel.png"></img>
+<img src="app/RAWUnravel/RAWUnravel/unravel-crop.jpg"></img>
 **RAWUnravel** is an open-source RAW image viewer and minimal editor for iOS, designed for photographers and developers who want an efficient way to preview, adjust, and export RAW photos on iPhone or iPad.  
 It provides real RAW decoding with high-quality AMaZE demosaicing and intuitive exposure controls, making it easy to tweak and export your images right from your device.
 
@@ -33,8 +33,6 @@ It provides real RAW decoding with high-quality AMaZE demosaicing and intuitive 
 - **LibRaw:**  
   - RAW file parsing and sensor data access  
   - [LibRaw](https://www.libraw.org/)
-    - subdepency **LCMS2** https://github.com/mm2/Little-CMS
-    - Little Color Management System 2
 - **librtprocess:**  
   - High-quality RAW demosaicing (AMaZE), color and tonal adjustments, and .pp3 processing  
   - [librtprocess](https://github.com/Beep6581/RawTherapee/tree/dev/rtengine/librtprocess)  
@@ -78,6 +76,6 @@ This project is released under the GNU GPLv3 (2007). <a href="LICENSE">LICENSE</
 ## Acknowledgments
 
 - RawTherapee and the open-source imaging community
-- LibRaw, LCMS2, and librtprocess contributors
+- LibRaw and librtprocess contributors
 
 ---
