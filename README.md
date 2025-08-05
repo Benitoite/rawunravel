@@ -51,7 +51,7 @@ It provides real RAW decoding with high-quality AMaZE demosaicing and intuitive 
 
 ## Screenshots
 
-<img src="screenshot1.png" width=30%></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="screenshot2.png" width=30%></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="screenshot3.png" width=30%></img>
+<img src="screenshot1.png" width=30%></img>&nbsp;&nbsp;&nbsp;&nbsp;<img src="screenshot2.png" width=30%></img>&nbsp;&nbsp;&nbsp;&nbsp;<img src="screenshot3.png" width=30%></img>
 
 ---
 
