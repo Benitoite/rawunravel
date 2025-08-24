@@ -82,13 +82,14 @@ struct SunExposurePanel: View {
     func currentPP3() -> String {
         """
         [Exposure]
-        Compensation = \(String(format: "%.2f", exposure))
-        Black = \(Int(blackPoint))
-        Shadows = \(String(format: "%.2f", shadows))
+        Compensation=\(String(format: "%.2f", exposure))
+        Black=\(Int(blackPoint))
+        Shadows=\(String(format: "%.2f", shadows))
 
         [RAW]
         """
     }
+
 
     // MARK: - Main Panel View
     var body: some View {
@@ -174,7 +175,7 @@ struct SunExposurePanel: View {
             // MARK: - Apply Button
             Button("Apply Adjustments") {
                 onApply(currentPP3())
-                print("=== Current PP3 ===\n\(currentPP3())")
+                //print("=== Current PP3 ===\n\(currentPP3())")
             }
             .buttonStyle(.borderedProminent)
         }

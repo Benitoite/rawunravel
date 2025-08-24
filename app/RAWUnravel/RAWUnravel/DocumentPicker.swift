@@ -53,7 +53,7 @@ struct DocumentPicker: UIViewControllerRepresentable {
             "com.sony.arw-raw-image"
         ].compactMap { UTType($0) }
         let picker = UIDocumentPickerViewController(forOpeningContentTypes: supportedTypes, asCopy: true)
-        print("Restoring picker to:", lastDirectoryPath ?? "<none>")
+        //print("Restoring picker to:", lastDirectoryPath ?? "<none>")
         // Restore last used directory if possible (iOS 16+)
         if let lastDir = lastDirectoryPath {
             picker.directoryURL = URL(fileURLWithPath: lastDir)
@@ -64,6 +64,22 @@ struct DocumentPicker: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: Context) {}
+    func importToTemp(_ sourceURL: URL) -> URL? {
+        let tempDir = FileManager.default.temporaryDirectory.appendingPathComponent("RAWUnravelSelected", isDirectory: true)
+        do {let ext = sourceURL.pathExtension.isEmpty ? "img" : sourceURL.pathExtension
+
+            try? FileManager.default.createDirectory(at: tempDir, withIntermediateDirectories: true, attributes: nil)
+            let destURL = tempDir.appendingPathComponent("selected.\(ext)")
+            // Remove only the file, not the directory
+            try? FileManager.default.removeItem(at: destURL)
+            try FileManager.default.copyItem(at: sourceURL, to: destURL)
+            return destURL
+        } catch {
+            //print("Error copying file to temp: \(error)")
+            return nil
+        }
+    }
+
 
     // MARK: - Coordinator
 
@@ -88,7 +104,7 @@ struct DocumentPicker: UIViewControllerRepresentable {
                 try fileManager.copyItem(at: url, to: destURL)
                 return destURL
             } catch {
-                print("Failed to copy file to Documents: \(error)")
+                //print("Failed to copy file to Documents: \(error)")
                 return nil
             }
         }
@@ -98,12 +114,15 @@ struct DocumentPicker: UIViewControllerRepresentable {
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
             if let firstURL = urls.first, let stableURL = persistPickedRAW(url: firstURL) {
                 let dir = firstURL.deletingLastPathComponent()
-                print("Saving last directory:", dir.path)
+                //print("Saving last directory:", dir.path)
                 lastDirectoryPath = dir.path
                 onPick(stableURL)
             } else {
-                print("Failed to persist picked file.")
+                //print("Failed to persist picked file.")
             }
         }
+        
     }
 }
+
+

@@ -128,7 +128,7 @@ struct RainbowColorPanel: View {
             // MARK: - Apply Button
             Button("Apply Color Adjustments") {
                 onApply(currentPP3())
-                print("=== Current PP3 ===\n\(currentPP3())")
+                //print("=== Current PP3 ===\n\(currentPP3())")
             }
             .buttonStyle(.borderedProminent)
         }

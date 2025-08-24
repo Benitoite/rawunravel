@@ -48,12 +48,10 @@
 		31A140792E3DCC5700FE9B77 /* Exceptions for "RAWUnravel" folder in "RAWUnravel" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				File.txt,
 				Info.plist,
 				LaunchScreen.storyboard,
 				output.png,
 				rawunravel.icns,
-				test.swift,
 				"unravel-logo.jpg",
 			);
 			target = 31A13F752E3DB72700FE9B77 /* RAWUnravel */;
@@ -65,7 +63,21 @@
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = 31A140782E3DCC5700FE9B77 /* Resources */;
 			membershipExceptions = (
-				test.swift,
+				amaze_demosaic.h,
+				RUShared.h,
+				RUShared.mm,
+				xtrans_demosaic.h,
+			);
+		};
+		31E8E1A02E45268000E12DCB /* Exceptions for "RAWUnravel" folder in "Compile Sources" phase from "RAWUnravel" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 31A13F722E3DB72700FE9B77 /* Sources */;
+			membershipExceptions = (
+				aligned_allocator.h,
+				amaze_demosaic.h,
+				DeconvParams.h,
+				RUShared.h,
+				xtrans_demosaic.h,
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -75,6 +87,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				31A140792E3DCC5700FE9B77 /* Exceptions for "RAWUnravel" folder in "RAWUnravel" target */,
+				31E8E1A02E45268000E12DCB /* Exceptions for "RAWUnravel" folder in "Compile Sources" phase from "RAWUnravel" target */,
 				31A7CECF2E4018E10067F207 /* Exceptions for "RAWUnravel" folder in "Copy Bundle Resources" phase from "RAWUnravel" target */,
 			);
 			path = RAWUnravel;
@@ -343,8 +356,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RAWUnravel/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RAWUnravel;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app saves images to the Photos app.";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app saves images to the Photos library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "RAWUnravel reads images from the Photos library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -355,10 +371,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = us.r42.rawunravel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/rb/Desktop/rawunravel4/app/RAWUnravel/RAWUnravel/rawunravel-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -380,8 +401,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RAWUnravel/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RAWUnravel;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app saves images to the Photos app.";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app saves images to the Photos library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "RAWUnravel reads images from the Photos library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -392,10 +416,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = us.r42.rawunravel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/rb/Desktop/rawunravel4/app/RAWUnravel/RAWUnravel/rawunravel-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

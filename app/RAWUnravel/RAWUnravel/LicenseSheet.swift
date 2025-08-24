@@ -65,7 +65,7 @@ struct ScrollableHTMLTextView: UIViewRepresentable {
     private func loadHTMLAttributedString() -> NSAttributedString {
         guard
             let url = Bundle.main.url(forResource: htmlFileName, withExtension: "html"),
-            var htmlString = try? String(contentsOf: url)
+            var htmlString = try? String(contentsOf: url, encoding: .utf8)
         else {
             return NSAttributedString(string: "License file missing.")
         }
@@ -91,5 +91,6 @@ struct ScrollableHTMLTextView: UIViewRepresentable {
         return (try? NSAttributedString(data: data, options: options, documentAttributes: nil))
             ?? NSAttributedString(string: "Could not parse license file.")
     }
+
 }
 

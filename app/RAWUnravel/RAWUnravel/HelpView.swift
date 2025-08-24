@@ -51,6 +51,30 @@ struct HelpRowItem: Identifiable {
         self.description = description
     }
 }
+// MARK: - Tap badges
+
+private struct DoubleTapEmoji: View {
+    var body: some View {
+        ZStack {
+            Text("☝️").font(.system(size: 26)).offset(x: -9, y: 4)
+            Text("☝️").font(.system(size: 26)).offset(x:  9, y: -4)
+        }
+        .frame(width: 34, height: 34)
+        .accessibilityLabel("Double tap")
+    }
+}
+
+private struct TripleTapEmoji: View {
+    var body: some View {
+        ZStack {
+            Text("☝️").font(.system(size: 24)).offset(x: -12, y: 6)
+            Text("☝️").font(.system(size: 24)).offset(x:   0, y: -8)
+            Text("☝️").font(.system(size: 24)).offset(x:  12, y: 6)
+        }
+        .frame(width: 34, height: 34)
+        .accessibilityLabel("Triple tap")
+    }
+}
 
 struct HelpView: View {
     @Environment(\.dismiss) private var dismiss
@@ -64,7 +88,7 @@ struct HelpView: View {
                 Button("Select RAW File") {}
                     .font(.system(size: 11, weight: .semibold))
                     .padding(.vertical, 1)
-                    .padding(.horizontal, 6)
+                    .padding(.horizontal, 12)
                     .buttonStyle(.borderedProminent)
                     .allowsHitTesting(false)
                     .opacity(0.96)
@@ -72,16 +96,25 @@ struct HelpView: View {
             title: "Select",
             description: "Pick a RAW file"
         ),
-        .init(emoji: "☀️", title: "Exposure", description: "Exposure, Black Point, Shadows sliders"),
-        .init(emoji: "🌈", title: "Color", description: "Saturation, Vibrance, Temperature sliders"),
-        .init(emoji: "✨", title: "Sharpen", description: "Coming soon! Sharpen details and clarity"),
-        .init(emoji: "📸", title: "Screenshot", description: "Copy preview to clipboard"),
+        .init(emoji: "☀️", title: "Exposure", description: "Exposure, Black Point, Shadows"),
+        .init(emoji: "🌈", title: "Color", description: "Chromaticity, Chroma, Contrast"),
+        .init(emoji: "✨", title: "Sharpen", description: "RLD Sharpening"),
+        .init(emoji: "📸", title: "Screenshot", description: "Export screen to JPEG"),
         .init(emoji: "📤", title: "Export", description: "Save to JPEG or Photos"),
-        // --- Gestures ---
-        .init(emoji: "🤏", title: "Pinch", description: "Zoom in/out"),
-        .init(emoji: "☝️", title: "Double-tap", description: "1:1 zoom"),
-        .init(emoji: "👆", title: "Drag", description: "Pan image"),
-        .init(emoji: "☝️", title: "Fit", description: "Tap to fit"),
+
+            .init(emoji: "🤏", title: "Pinch", description: "Zoom in/out"),
+
+            // Replace these two:
+            .init(miniButton: AnyView(DoubleTapEmoji()),
+                  title: "Double-tap",
+                  description: "Fit to Screen"),
+
+            .init(miniButton: AnyView(TripleTapEmoji()),
+                  title: "Triple-tap",
+                  description: "1:1 pixel view"),
+
+            .init(emoji: "👆", title: "Drag", description: "Pan image"),
+
     ]
 
     var body: some View {
